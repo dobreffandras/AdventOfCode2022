@@ -28,17 +28,15 @@ def run(moves):
     H = (0,0)
     T = (0,0)
     visited_points = {T}
+    newHPos = {
+        'L': lambda x,y: (x-1, y),
+        'U': lambda x,y: (x, y+1),
+        'R': lambda x,y: (x+1, y),
+        'D': lambda x,y: (x, y-1)
+    }
     for move in moves:
-        (x, y) = H
-        if move == 'L':
-            H = (x-1, y)
-        elif move == 'U':
-            H = (x, y+1)
-        elif move == 'R':
-            H = (x+1, y)
-        elif move == 'D':
-            H = (x, y-1)
-        
+        (xH, yH) = H
+        H = newHPos[move](xH, yH)
         T = newTPos(H, T)
         visited_points.add(T)
     

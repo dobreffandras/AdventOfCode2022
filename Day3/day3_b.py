@@ -1,4 +1,4 @@
-puzzle_input = open("./day3_a_puzzle_input.txt", "r").read()
+puzzle_input = open("./puzzle_input.txt", "r").read()
 
 def parse(input):
     lines = input.split('\n')

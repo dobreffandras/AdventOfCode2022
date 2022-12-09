@@ -1,6 +1,6 @@
 import re
 
-puzzle_input = open("./day7_a_puzzle_input.txt", "r").read()
+puzzle_input = open("./puzzle_input.txt", "r").read()
 
 class File:
     def __init__(self, name, size):
@@ -65,17 +65,16 @@ def draw_directory_structure(directory, indentation=0):
     for file in directory.files:
         print(" "*(indentation+1), f"- {file.name} (file, size={file.size})")
 
-def total_size_of_directory_to_be_deleted(directory):
-    def collect_directories_with_sizes(current_dir):
-        directories_with_sizes = [(current_dir, current_dir.total_size())]
+def total_size_of_small_directories(directory):
+    def collect_small_directories(current_dir):
+        small_directories = []
+        if current_dir.total_size() < 100000:
+            small_directories.append(current_dir)
         for subdir in current_dir.subdirs.values():
-            directories_with_sizes.extend(collect_directories_with_sizes(subdir))
-        return directories_with_sizes
+            small_directories.extend(collect_small_directories(subdir))
+        return small_directories
     
-    space_to_be_deleted = 30000000-(70000000-directory.total_size())
-    directories_with_sizes_sorted = sorted(collect_directories_with_sizes(directory), key=lambda p: p[1])
-    return next(x[1] for x in directories_with_sizes_sorted if space_to_be_deleted <= x[1])
-    
+    return sum([d.total_size() for d in collect_small_directories(directory)])
 
 #draw_directory_structure(parse(puzzle_input))
-print(total_size_of_directory_to_be_deleted(parse(puzzle_input)))
+print(total_size_of_small_directories(parse(puzzle_input)))

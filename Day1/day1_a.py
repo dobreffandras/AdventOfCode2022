@@ -1,4 +1,4 @@
-puzzle_input = open("./day1_a_puzzle_input.txt", "r").read()
+puzzle_input = open("./puzzle_input.txt", "r").read()
 
 def parse(input):
     elf_inventories = input.split('\n\n')
@@ -7,9 +7,7 @@ def parse(input):
     return elves_calories
 
 def max_collected_calories(elves_calories):
-    total_calories = [sum(elf_calories) for elf_calories in elves_calories]
-    top3 = sorted(total_calories, reverse=True)[:3]
-    return sum(top3)
+    return max([sum(elf_calories) for elf_calories in elves_calories])
     
 
 print(max_collected_calories(parse(puzzle_input)))

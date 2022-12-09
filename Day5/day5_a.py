@@ -1,4 +1,4 @@
-puzzle_input = open("./day5_a_puzzle_input.txt", "r").read()
+puzzle_input = open("./puzzle_input.txt", "r").read()
 
 def parse(input):
     
@@ -35,6 +35,7 @@ def run_rearrangement(data):
 
     def move(s, n, frm, to):
         to_move = s[frm][0:n]
+        to_move.reverse()
         to_move.extend(s[to])
         s[to] = to_move
         s[frm] = s[frm][n:]
